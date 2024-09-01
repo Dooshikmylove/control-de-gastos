@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL GASTOS</title>
+</head>
+<body data-bs-theme="dark" onload="inicio()">
+    <nav class="navbar" style="background-color: cadetblue; border-radius: 100%;">
+        <div class="container-fluid">
+<h1 class="m-auto text-white">CONTROL GASTOS</h1>
+        </div>
+      </nav>
+
+      <div class="container-fluid" style="color: white;">
+
+<div class="card text-center w-50 m-auto mt-3 shadow p-2" id="divPresupuesto" style="border-color: cadetblue; color: white;">
+<h3>PRESUPUESTO INICIAL</h3>
+<input type="number" class="form-control w-75 m-auto " value="0" min="0" max="1000000" id="presupuesto" style="border-color: cadetblue;">
+<button class="btn w-75 m-auto my-3" style="background-color: cadetblue; color: white;" id="btnPresupuesto"> INICIAR</button>
+</div>
+<div class="d-none" id="divGastos" style="border-color: cadetblue;">
+    <div class="card text-center w-50 m-auto mt-3 shadow p-2 " style="border-color: cadetblue;">
+        <button class="btn m-auto w-25" data-bs-toggle="modal" data-bs-target="#nuevoGasto"><img src="img/add.png" width="30px" height="30px" alt=""></button>
+        <h2 class="mt-2">GASTOS</h2>
+        <div class="row">
+            <div class="col">
+                <circle-progress value="0" min="0" max="100" id="progress"> <div id="progress-container">
+                    <div id="progress"></div>
+                    <div id="progress-text">0%</div>
+                </div>
+                </circle-progress>
+            </div>
+            <div class="col">
+                <button class="btn w-75 m-auto my-2" style="background-color: darkred;" onclick="reset()">RESET</button>
+            <p><span>Presupuesto</span><b id="totalPresupuesto">$0.00</b></p>    
+            <p><span>Disponible</span><b id="totalDisponible">$0.00</b></p>    
+            <p><span>Gastado</span><b id="totalGastos">$0.00</b></p>    
+
+            </div>
+        </div>
+    </div>
+        <div class="card text-center w-50 m-auto mt-3 shadow p-2" style="border-color: cadetblue; color: white;">
+            <h2 class="mt-2">CATEGORIA</h2>
+            <select name="categorias" id="filtrarcategoria" class="form-control m-75 m-auto" style="border-color: cadetblue; color: white;">
+                <option value="todos">--TODOS--</option>
+                <option value="comida">Comida</option>
+                <option value="ahorro">Ahorro</option>
+                <option value="casa">Casa</option>
+                <option value="ocio">Ocio</option>
+                <option value="salud">Salud</option>
+                <option value="varios">Varios</option>
+                <option value="suscripciones">Suscripciones</option>
+            </select>
+        </div>
+        <div class=" card text-center w-50 m-auto mt-3 shadow p-2" style="border-color: cadetblue; color: white;">
+            <h2 class="mt-2">GASTOS</h2>
+            <div class="text-center" id="listaGastos">
+                <small>No hay gastos</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="nuevoGasto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="border-color: cadetblue;">
+    <div class="modal-dialog modal-dialog-centered" style="border-color: cadetblue;">
+        <div class="modal-content" style="border-color: cadetblue;">
+            <div class="modal-header" style="border-color: cadetblue;">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">NUEVO GASTO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="border-color: cadetblue;">
+                <p><label for="">Descripción:</label></p>
+                <input type="text" class="form-control" id="descripcion" style="border-color: cadetblue;">
+                <p><label for="">Costo:</label></p>
+                <input type="number" class="form-control" id="costo" style="border-color: cadetblue;">
+                <p><label for="">Categoria:</label></p>
+                <select name="categorias" class="form-control m-75 m-auto" id="categoria" style="border-color: cadetblue; color: wheat;">
+                    <option value="todos">--TODOS--</option>
+                    <option value="comida">Comida</option>
+                    <option value="ahorro">Ahorro</option>
+                    <option value="casa">Casa</option>
+                    <option value="ocio">Ocio</option>
+                    <option value="salud">Salud</option>
+                    <option value="varios">Varios</option>
+                    <option value="suscripciones">Suscripciones</option>
+                </select>
+            </div>
+            <div class="modal-footer" style="border-color: cadetblue;">
+                <button type="button" class="btn" style="background-color: darkred; color: white; border-color: cadetblue;" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn" style="background-color: darkolivegreen; color: white; border-color: cadetblue;" onclick="guardarGasto()" >Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+
+<div class="modal fade" id="cargarGasto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="border-color: cadetblue;">
+    <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content" style="border-color: cadetblue;">
+            <div class="modal-header" style="border-color: cadetblue;">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">EDITAR GASTO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><label for="">Descripción:</label></p>
+                <input type="text" class="form-control" id="edescripcion" style="border-color: cadetblue;">
+                <p><label for="">Costo:</label></p>
+                <input type="number" class="form-control" id="ecosto" style="border-color: cadetblue;">
+                <p><label for="">Categoria:</label></p>
+                <select name="categorias" class="form-control m-75 m-auto" id="ecategoria" style="border-color: cadetblue; color: white;">
+                    <option value="todos">--TODOS--</option>
+                    <option value="comida">Comida</option>
+                    <option value="ahorro">Ahorro</option>
+                    <option value="casa">Casa</option>
+                    <option value="ocio">Ocio</option>
+                    <option value="salud">Salud</option>
+                    <option value="varios">Varios</option>
+                    <option value="suscripciones">Suscripciones</option>
+                </select>
+            </div>
+            <div class="modal-footer" style="border-color: cadetblue;">
+                <button type="button" class="btn" style="background-color: darkred; color: white; border-color: cadetblue;" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn" style="background-color: darkolivegreen; color: white; border-color: cadetblue;" onclick="actualizarGasto()" >Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+    <input type="hidden" id="eindex">
+
+   
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Asegúrate de incluir jQuery -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-circle-progress@1.2.2/dist/circle-progress.min.js"></script> <!-- Luego carga circle-progress -->
+    <script src="js/app.js"></script> <!-- Finalmente, carga tu archivo JavaScript -->
+</body>
+</html>

@@ -1,0 +1,13 @@
+body{
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+/* Estilos personalizados para la barra de progreso */
+#progress-container {
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin: 0 auto;
+}
+
+
