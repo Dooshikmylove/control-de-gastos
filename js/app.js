@@ -11,7 +11,7 @@ var disponible = 0;
 
 // Inicializar la aplicación
 const inicio = () => {
-    tPresupuesto = (localStorage.getItem("presupuesto"));
+    tPresupuesto =parseInt(localStorage.getItem("presupuesto"));
     if (tPresupuesto > 0) {
         divGastos.classList.add("d-block");
         divGastos.classList.remove("d-none");
@@ -36,7 +36,7 @@ document.querySelector('#filtrarcategoria').addEventListener('change', function(
 
 // Evento para establecer el presupuesto inicial
 btnPresupuesto.onclick = () => {
-    tPresupuesto = parseInt(presupuesto.value);
+    tPresupuesto = (presupuesto.value);
     if (tPresupuesto == 0 || tPresupuesto<0 || tPresupuesto==" " ) {
         Swal.fire({icon: "error", title: "ERROR", text: "Presupuesto mayor a 0"});
         return;
