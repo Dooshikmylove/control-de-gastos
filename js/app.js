@@ -207,3 +207,8 @@ const deleteGasto = (index) => {
         }
     });
 };
+
+const reset=()=>{
+    localStorage.clear();
+    inicio();
+}
