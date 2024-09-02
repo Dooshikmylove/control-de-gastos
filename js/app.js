@@ -37,7 +37,7 @@ document.querySelector('#filtrarcategoria').addEventListener('change', function(
 // Evento para establecer el presupuesto inicial
 btnPresupuesto.onclick = () => {
     tPresupuesto = parseInt(presupuesto.value);
-    if (tPresupuesto == 0 || tPresupuesto<0 || tPresupuesto.trim()==="") {
+    if (tPresupuesto == 0 || tPresupuesto<0 || tPresupuesto.trim() === "" ) {
         Swal.fire({icon: "error", title: "ERROR", text: "Presupuesto mayor a 0"});
         return;
     }
