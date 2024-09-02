@@ -11,7 +11,7 @@ var disponible = 0;
 
 // Inicializar la aplicación
 const inicio = () => {
-    tPresupuesto = parseInt(localStorage.getItem("presupuesto"));
+    tPresupuesto = (localStorage.getItem("presupuesto"));
     if (tPresupuesto > 0) {
         divGastos.classList.add("d-block");
         divGastos.classList.remove("d-none");
@@ -56,7 +56,7 @@ const guardarGasto = () => {
     let costo = parseInt(document.getElementById("costo").value);
     let categoria = document.getElementById("categoria").value;
 
-    if (descripcion.trim() === "" || isNaN(costo) || costo === 0) {
+    if (descripcion.trim() === "" || isNaN(costo) || costo === 0 || categoria==="todos") {
         Swal.fire({icon: "error", title: "ERROR", text: "Datos incorrectos"});
         return;
     }
